@@ -9,12 +9,82 @@
 <body>
   <div id="root"></div>
   <script>
+    let htmlToolBox = {
+      bracket: {
+        small: ["(", ")"],
+        middle: ["{", "}"],
+        big: ["[", "]"],
+        arrow : ["<", ">"]
+      },
+      quotation: {
+        single: "'",
+        double: '"'
+      },
+      tag: "div",
+      endSign: "/"
+      };
+    function flexDivTag() {
+      let html = "";
+      html = "<div style=" + '"display: flex"' + ">";
+      return html;    
+    }
+    function flexDivTagRow() {
+      let html = "";
+      html = "<div style=" + '"display: flex; flex-direction: row"' + ">";
+      return html;    
+    }
+    function flexDivTagColumn() {
+      let html = "";
+      html = "<div style=" + '"display: flex; flex-direction: column"' + ">";
+      return html;    
+    }
     let practiceArray = ["피카츄", "라이츄", "파이리"];
     let studentArray = ["공욱재", "정희은", "노수민"];
-
+    let trainer = "트레이너";
+    let tempHTML = "";
+    
+    let startTag = htmlToolBox.bracket.arrow[0] + htmlToolBox.tag + htmlToolBox.bracket.arrow[1];
+    let closeTag = htmlToolBox.bracket.arrow[0] + htmlToolBox.endSign + htmlToolBox.tag + htmlToolBox.bracket.arrow[1];
+    let colorbox = ["lightcoral", "lightgreen", "lightblue"]
     let root = document.getElementById("root");
-    root.innerHTML = "<h1>" + practiceArray[0] + "</h1>";
-    root.textContent = studentArray[0];
+    console.log(flexDivTag());
+    //전체 뼈대 제작
+    for(let i = 0; i < practiceArray.length; i++){
+      //컨테이너 블록 시작
+      tempHTML += flexDivTag();
+      //제 1 블록
+      tempHTML += flexDivTag();
+      for(let j = 0 ; j < trainer.length ; j++ ){
+        tempHTML += startTag + trainer.charAt(j) + closeTag; 
+      }
+      tempHTML += startTag + (i+1) + closeTag;
+      tempHTML += closeTag;
+      //제 2 블록
+      tempHTML += flexDivTagColumn();
+      tempHTML += startTag + studentArray[i] + closeTag;
+      tempHTML += startTag + practiceArray[i] + closeTag;
+      tempHTML += closeTag;
+      //컨테이너 블록 끝
+      tempHTML += closeTag;
+    }
+    console.log(tempHTML);
+    root.innerHTML += tempHTML;
+    for(let i = 0 ; i < root.children.length ; i ++){
+      root.children[i].style.width = "90vw";
+      root.children[i].style.height = "30vh";
+      for(let j = 0 ; j < root.children[i].children[j].length ; j++){
+        root.children[i].children[j].style.width = "50%";
+        root.children[i].children[j].style.height = "100%";
+      }
+    }
+    /*
+    for (let i = 0 ; i < practiceArray.length; i++) {
+      root.innerHTML += "<h1>" + practiceArray[i] + "</h1>";
+    }
+    */
+    console.log(root.innerHTML);
+    //root.innerHTML = "<h1>" + practiceArray[0] + "</h1>";
+    //root.textContent = studentArray[0];
   </script>
   
 </body>
